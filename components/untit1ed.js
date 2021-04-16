@@ -1,0 +1,2 @@
+<span class=" col-2 text-left btn  text-info text-center w-100 pr-4" title='Friends'  >({friends.data.friends && friends.data.friends.length - pendingLen})</span>
+<span class=" col-2 text-left btn  text-danger text-center w-100 pr-4" title="Pending friend request"  >({pendingLen})</span>
