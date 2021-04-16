@@ -1,6 +1,6 @@
 
 import withSession from '../../../lib/session'
-import Property,{UserData} from "../../../models/model"
+import Post,{UserData} from "../../../models/model"
 import dbConnect from "../../../utils/connectDb"
 
 

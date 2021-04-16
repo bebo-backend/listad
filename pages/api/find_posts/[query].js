@@ -1,6 +1,6 @@
 
 import withSession from '../../../lib/session'
-import Post,{UserData,WatchList,Group} from "../../../models/model"
+import Post,{UserData,Group} from "../../../models/model"
 import dbConnect from "../../../utils/connectDb"
 import {sortBy, reverse} from 'lodash'
 import { enGB } from 'date-fns/locale'
