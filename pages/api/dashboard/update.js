@@ -1,6 +1,6 @@
 
 import withSession from '../../../lib/session'
-import Property,{User} from "../../../models/model"
+import Property,{UserData} from "../../../models/model"
 import dbConnect from "../../../utils/connectDb"
 
 
@@ -19,7 +19,7 @@ export default withSession(async (req, res) => {
  
     
 
-    const update =  await User.findOneAndUpdate({email:email}, form, data=>{
+    const update =  await UserData.findOneAndUpdate({email:email}, form, data=>{
 
 
         
