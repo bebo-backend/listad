@@ -109,7 +109,6 @@ res.status(200).json({success:true,message:createProperty})
 
     
 
-2 bedrooms flat needed a swap for self contain at alagbato
  
   
 
