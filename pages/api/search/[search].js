@@ -1,6 +1,6 @@
 
 import withSession from '../../../lib/session'
-import Post,{User} from "../../../models/model"
+import Post,{UserData} from "../../../models/model"
 import dbConnect from "../../../utils/connectDb"
 import {sortBy, reverse} from 'lodash'
 import { enGB } from 'date-fns/locale'
@@ -342,7 +342,7 @@ property =  await Property.paginate({$and:transformData
 
     } else if (searchfilter && searchfilter == "Agents") {
 
-     const user  = await User.findOne({email:search_data})
+     const user  = await UserData.findOne({email:search_data})
 
       property =  await Property.paginate({agentuser:user},allOptions)
 
