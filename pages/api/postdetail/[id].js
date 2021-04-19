@@ -22,6 +22,8 @@ id = id.split('__')[0]
 
 const   getUser = await UserData.findOne({email:email})
 
+const   postUser = await UserData.findOne({email:post.agentuser.email})
+
 if (getUser){
 
 
@@ -50,9 +52,11 @@ if (getUser){
 
 
 
+post.agentuser = postUser
 
 
 //console.log(post)
+
 
 res.status(200).json(post)
 

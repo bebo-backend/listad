@@ -91,8 +91,7 @@ export const Images = mongoose.models.Image ||  mongoose.model('Image', Image);
 
 const UserDataSc = new mongoose.Schema({
     fullname:{type:String},
-    phone:{type: String,
-        default: '+234'},
+    phone:{type: String,default: '+234',required:true},
     password:{type:String,required:true},
     email:{type:String,required:true,unique:true},
     image:String,
@@ -147,6 +146,7 @@ const PostSch = new mongoose.Schema({
     posting_type:{type:String,required:true},
     description:{type:String,required:true},
     location:String,
+  anonymous:{type:String,default:'false'},
    agentuser:{type:Types.ObjectId, ref:"UserData"},
     images:[Image],
     extra_data:{type:String},

@@ -94,7 +94,7 @@ switch(String(sort)){
     limit:limit,
     sort:getSort(sort),
     lean:true,
-    select:"title posting_type description agentuser images category location views date",
+    select:"title posting_type description agentuser images category location views date anonymous",
     populate:"agentuser"
   }
 
@@ -116,7 +116,7 @@ switch(String(sort)){
       value:city.toLowerCase().indexOf("all") >= 0 ?state.toLowerCase() =="all" ? "nigeria":state.toLowerCase().replace("state","") :city.toLowerCase(),
       fields: ["location"]
     },
- select:"title posting_type description agentuser images category location views date",
+ select:"title posting_type description agentuser images category location views date anonymous",
     populate:"agentuser"
   } 
 
@@ -130,7 +130,7 @@ switch(String(sort)){
       value: watchLink,
       fields: ["title",'posting_type','description']
     },
- select:"title posting_type description agentuser images category location views date",
+ select:"title posting_type description agentuser images category location views date anonymous",
     populate:"agentuser"
   } 
 
@@ -144,7 +144,7 @@ const searchOptions = {
       value: search,
       fields: ["title",'posting_type','description','category','location']
     },
- select:"title posting_type description agentuser images category location views date",
+ select:"title posting_type description agentuser images category location views date anonymous",
     populate:"agentuser"
   }
 

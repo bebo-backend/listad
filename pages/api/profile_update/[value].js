@@ -1,6 +1,6 @@
 
 import withSession from '../../../lib/session'
-import Post,{UserData} from "../../../models/model"
+import {UserData} from "../../../models/model"
 import dbConnect from "../../../utils/connectDb"
 
 import { enGB } from 'date-fns/locale'
@@ -19,17 +19,20 @@ export default withSession(async (req, res) => {
 
   let {value} =  req.query
 
-const email = value.split('__')[1]
-const image = value.split('__')[0]
+const name = value.split('__')[0]
+const val = value.split('__')[1]
+const email = value.split('__')[2]
+
+console.log('id',value)
+
+user =  await UserData.updateOne({email:email},{[name]:val})
 
 
 
-user =  await UserData.updateOne({email:email},{image:image})
-
-//console.log('update user',user)
+//console.log('posts',user)
 
 
-res.status(200).json(user)
+res.status(200).json({success:true})
 
    
 
