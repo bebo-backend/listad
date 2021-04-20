@@ -10,12 +10,13 @@ export default withSession(async (req, res) => {
 
 const {username,email,image,password} = req.body
 
-try {
+
+
+  try {
+
 
    const getUser =  await UserData.findOne({email:email})
 
-
-// console.log('req.body',req.body)
    if (getUser){
 
    res.status(200).json({success:false,error:"Account already exists, change email."})
@@ -23,22 +24,14 @@ try {
    } else {
 
 
-
-  try {
-    // we check that the user exists and store some data in session
-   
+ 
 const createUser = await UserData.create(req.body)
 
 const user = { isLoggedIn: true, username,email,image:image ? image :null}
 
-        // console.log(user)
-      
-      //   req.session.set('user', user)
-    
-      // await req.session.save()
-
-
 res.status(200).json({success:true})
+
+}
 
  
   
@@ -48,13 +41,6 @@ res.status(200).json({success:true})
 console.log(error)
     res.status(200).json({success:false,error:error.message})
   }
-
-} catch (error){
-
-console.log(error)
-res.status(200).json({success:false,error:error.message})
-
-}
 
 }	
 
