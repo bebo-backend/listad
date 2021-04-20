@@ -46,15 +46,17 @@ export default withSession(async (req, res) => {
 
    const getUser =  await UserData.findOne({email:email,password:password})
 const about =  await About.find({}).sort('date:-1').limit(1)
-const version = about[0].version
+
 
    if (getUser){
   //console.log('there is user: '+getUser)
 
+const version =  about ? about[0].version:'1.0.0'
+
 
     const {fullname, image,email} = getUser
     
-        const user = { isLoggedIn: true, fullname,email,image:image ? image :null,version:about[0].version}
+        const user = { isLoggedIn: true, fullname,email,image:image ? image :null,version}
 
        // console.log(user)
       
