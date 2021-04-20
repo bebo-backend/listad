@@ -17,12 +17,11 @@ const {username,email,image,password} = req.body
 
    const getUser =  await UserData.findOne({email:email})
 
-   if (getUser){
+ if (getUser){
 
    res.status(200).json({success:false,error:"Account already exists, change email."})
 
    } else {
-
 
  
 const createUser = await UserData.create(req.body)
@@ -33,8 +32,9 @@ res.status(200).json({success:true})
 
 }
 
- 
-  
+
+
+    
 
   } catch (error) {
  
@@ -42,7 +42,8 @@ console.log(error)
     res.status(200).json({success:false,error:error.message})
   }
 
-}	
+
+	
 
 
 
