@@ -10,6 +10,8 @@ export default withSession(async (req, res) => {
 
 const {username,email,image,password} = req.body
 
+try {
+
    const getUser =  await UserData.findOne({email:email})
 
 
@@ -46,6 +48,13 @@ res.status(200).json({success:true})
 console.log(error)
     res.status(200).json({success:false,error:error.message})
   }
+
+} catch (error){
+
+console.log(error)
+res.status(200).json({success:false,error:error.message})
+
+}
 
 }	
 
