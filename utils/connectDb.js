@@ -20,7 +20,7 @@ async function dbConnect() {
 
   
 //  const db = await mongoose.connect("mongodb://127.0.0.1:27017/", {
- const db = await mongoose.connect("mongodb+srv://shadrach:Shadrach16.com@cluster0.cofkx.mongodb.net/listad_db?retryWrites=true&w=majority", {
+ const db = await mongoose.connect("mongodb+srv://shadrach:Shadrach16.com@cluster0.mfado.mongodb.net/listad_database?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -28,6 +28,8 @@ async function dbConnect() {
     
 
     connection.isConnected = true
+
+console.log('database connected')
 
 
    },err=>console.log('error connecting'))
