@@ -15,12 +15,10 @@ async function dbConnect() {
   /* connecting to our database */
 
 
-//mongodb+srv://shadrach:<password>@cluster0.s0lbg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
+ //const db = await mongoose.connect("mongodb+srv://shadrach:Shadrach16.com@cluster0.mfado.mongodb.net/listad_database?retryWrites=true&w=majority", {
 
-  
-//  const db = await mongoose.connect("mongodb://127.0.0.1:27017/", {
- const db = await mongoose.connect("mongodb+srv://shadrach:Shadrach16.com@cluster0.mfado.mongodb.net/listad_database?retryWrites=true&w=majority", {
+const db = await mongoose.connect("mongodb://127.0.0.1:27017/", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
