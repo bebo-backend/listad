@@ -44,6 +44,9 @@ if (post > 0) {
 
  postDate = await Post.find({agentuser:user_data._id},'date').sort('date:-1').limit(1)
 
+
+console.log('post',postDate)
+
 if (postDate){
 postDate = postDate.date
 } else {
