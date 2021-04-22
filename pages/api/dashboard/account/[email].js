@@ -33,17 +33,42 @@ select:'username phone email date image'
 
 console.log('user',user)
 
-const   post =  await Post.find({agentuser:user.docs}).countDocuments()
-let postDate
-if (post >0) {
+if (user.docs.length > 0){
 
- postDate = await Post.find({agentuser:user.docs},'date').sort('date:-1').limit(1)
+const user_data = user.docs[0]
+const   post =  await Post.find({agentuser:user_data._id}).countDocuments()
+
+let postDate = ""
+
+if (post > 0) {
+
+ postDate = await Post.find({agentuser:user_data._id},'date').sort('date:-1').limit(1)
+
+if (postDate){
+postDate = postDate.date
+} else {
+
+postDate=""
 
 }
 
-user.docs = user.docs.map(e=>({username:e.username,image:e.image,email:e.email,phone:e.phone,created:e.date,posts:post,'last posted':postDate[0].date}))
+}
+
+
+user.docs = {username:user_data[username],
+image:user_data[image],email:user_data[email],
+phone:user_data[phone],created:user_data[date],posts:post,
+'last posted':postDate}
+
+
 
 res.status(200).json(user)
+
+
+}
+
+
+
 
    
 
