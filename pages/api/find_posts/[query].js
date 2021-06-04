@@ -18,20 +18,13 @@ export default withSession(async (req, res) => {
 
     const limit = 10
 
-  let {query,page,location,email,watchLink,sort,search} =  req.query
+  let {query,page,email,watchLink,sort,search,searchfilter} =  req.query
 
 
-console.log('search_filter', req.query)
+console.log('searchquery', req.query)
 
 // location = "Nigeria,Lagos,Badagry West"
 let city,state,country
-
-if (location){
-city = location.replace(" ","").split(",")[2].replace(" ","")
-state = location.replace(" ","").split(",")[1].replace(" ","")
-country = location.replace(" ","").split(",")[0]
-
-}
 
 
 
@@ -63,12 +56,12 @@ switch(String(sort)){
    break;
  }
 
- case "Most Viewed":{
+ case "Most viewed":{
 
     return {views:-1,'views.date':-1}
       break;
  }
- case "First Modified":{
+ case "First modified":{
 
     return {date:1}
       break;
@@ -86,6 +79,186 @@ switch(String(sort)){
 
 }
 
+const getField = (field="All Categories")=>{
+
+  switch (String(field).toLowerCase()){
+
+case "description":{
+
+  return ['description']
+  break;
+}
+
+case "price":{
+
+  return ['price']
+  break;
+}
+
+case "City or Street":{
+
+  return ['location']
+  break;
+}
+
+
+case "posting_type":{
+
+  return ['posting_type']
+  break;
+}
+
+case "category":{
+
+  return ['category']
+  break;
+}
+
+
+
+case "title":{
+
+ return ['title','extra_data']
+  break;
+}
+
+
+
+
+
+case "All Categories":{
+
+  return ['title','extra_data',]
+  break;
+}
+
+default :{
+
+return ['title','extra_data','category']
+
+break;
+
+}
+
+
+
+  }
+}
+
+
+
+
+
+const setFilterToArray = (searchfilter,searchvalue)=>{
+
+const splitFilter = searchfilter.split("..")
+
+let returnData = []
+
+splitFilter.filter(e=>e).forEach(myfilter=>{
+
+
+let filKey = myfilter.split("__")[0],filData = myfilter.split("__")[1]
+
+filData = filData
+
+
+
+if (filKey === "price" ){
+
+const splitData = [filData],filDataJoin = []
+
+
+console.log('fildata',splitData)
+splitData.forEach(e=> {
+
+  switch(String(filData)){
+
+ case "Any price":{
+  filDataJoin.push({[filKey]:{$gt:0}})
+   break;
+ }
+
+ case "Under ₦30,000":{
+    filDataJoin.push({[filKey]:{$lt:30000}})
+   break;
+ }
+
+ case "₦30,000 to ₦100,000":{  
+    filDataJoin.push({[filKey]:{$lt:100000,$gt:30000}})
+   break;
+ }
+
+ case "Over ₦100,000":{
+    filDataJoin.push({[filKey]:{$gt:100000}})
+      break;
+ }
+
+ default :{
+  filDataJoin.push({[filKey]:{$gt:0}})
+   break;
+ }
+}
+
+})
+
+console.log("splitData -- ",filDataJoin)
+returnData.push({$or:filDataJoin})
+
+
+
+
+} else if(filKey === "category"||filKey === "posting_type" ){
+
+const splitData = [filData.replace("@","/")],filDataJoin = []
+
+splitData.forEach(e=> filDataJoin.push({[filKey]:{$in:e}}))
+console.log("splitData -- ",filDataJoin)
+returnData.push({$or:filDataJoin})
+
+} else if (filKey === "City or Street" ){
+
+
+city = filData.replace(" ","").split(",")[2].replace(" ","")
+state = filData.replace(" ","").split(",")[1].replace(" ","")
+country = filData.replace(" ","").split(",")[0]
+
+
+
+
+const splitData = [filData],filDataJoin = []
+
+splitData.forEach(e=> filDataJoin.push({['location']:{$in:e}}))
+console.log("splitData -- ",filDataJoin)
+returnData.push({$or:filDataJoin})
+
+
+
+} else {
+
+
+const splitData = [filData],filDataJoin = []
+
+splitData.forEach(e=> filDataJoin.push({[filKey]:{$in:e}}))
+console.log("splitData -- ",filDataJoin)
+returnData.push({$or:filDataJoin})
+
+}
+
+
+})
+
+console.log("returnFilter -- ",returnData)
+
+return returnData.length >0 ? returnData:null
+
+
+}
+
+
+
+
+
 
 
 
@@ -98,13 +271,6 @@ switch(String(sort)){
     populate:"agentuser"
   }
 
-  const forumOptions = {
-    page:page ? page:1,
-    limit:60,
-    sort:getSort(sort),
-    lean:true,
-    populate:"creator"
-  }
 
 
   const options = {
@@ -113,26 +279,13 @@ switch(String(sort)){
     sort:getSort(sort),
     lean:true,
     search:{
-      value:city.toLowerCase().indexOf("all") >= 0 ?state.toLowerCase() =="all" ? "nigeria":state.toLowerCase().replace("state","") :city.toLowerCase(),
-      fields: ["location"]
+      value:search,
+      fields: getField(searchfilter)
     },
- select:"title posting_type description agentuser images category location views date anonymous",
     populate:"agentuser"
-  } 
+  }
 
 
- const watchOptions = {
-    page:page ? page:1,
-    limit:12,
-    sort:getSort(sort),
-    lean:true,
-    search:{
-      value: watchLink,
-      fields: ["title",'posting_type','description']
-    },
- select:"title posting_type description agentuser images category location views date anonymous",
-    populate:"agentuser"
-  } 
 
 
 const searchOptions = {
@@ -148,18 +301,7 @@ const searchOptions = {
     populate:"agentuser"
   }
 
-  const searchForumOptions = {
-    page:page ? page:1,
-    limit:12,
-    sort:getSort(sort),
-    lean:true,
-    search:{
-      value: search,
-      fields: ["title",'name','creator.username','creator.fullname']
-    },
 
-    populate:"creator"
-  }
 
 
   function getDate(){
@@ -170,129 +312,45 @@ let c = new Date()
 
 }
 
-if (search){
 
 
-if (query.toLowerCase().split("&&")[0] == "discover"){
 
+    if (!searchfilter && search) {
 
-switch(query.toLowerCase().split("&&")[1]){
-
-case "forum":{
-
-posts =  await Group.paginate({}, searchForumOptions)
-console.log('forum search',posts)
-
-
-break;
+const typeValue = query.split("&&")[1]
+if (typeValue != "All"){
+posts =  await Post.paginate({posting_type:typeValue},searchOptions)
+} else {
+    posts =  await Post.paginate({},searchOptions)
 }
 
 
-case "watchlist":{
+    } else     if (!searchfilter && !search) {
 
-
-posts =  await Post.paginate({}, searchOptions)
-
-
-
-
-break;
-} 
-
-
-
-default:{
-
-console.log('Search')
-break;
+const typeValue = query.split("&&")[1]
+if (typeValue != "All"){
+posts =  await Post.paginate({posting_type:typeValue},allOptions)
+} else {
+    posts =  await Post.paginate({},allOptions)
 }
 
-}
+
 
 
 }  else {
 
-posts =  await Post.paginate({}, searchOptions)
+const transformData = setFilterToArray(searchfilter,search)
 
-}
-
-
-
-}
-
-else {
-
-
-if (query.toLowerCase().split("&&")[0] == "discover"){
-
-
-switch(query.toLowerCase().split("&&")[1]){
-
-case "forum":{
-
-
-posts =  await Group.paginate({}, forumOptions)
-
-// posts = await Post.aggregate([{
-//   $match:
-//     {"date": {$gte: new Date(getDate()[0],getDate()[1],getDate()[2]) }}
-// },
-// {$sort:{'views.date':-1}}]).limit(12)
-
-break;
-}
-
-
-case "watchlist":{
-
-const getUser =  await UserData.findOne({email:email},"_id")
-
-
-posts =  await Post.paginate({}, watchOptions)
-
-
-console.log('watchlist')
-
-
-break;
-} 
-
-
-case "saved":{
-
-
-break;
-} 
-
-
-default:{
-
-console.log('Discover saved')
-break;
-}
-
-}
-
-
-}  else {
-
-
-
-if (query.split("&&")[1] == "All"){
-
-posts =  await Post.paginate({},location && state.toLowerCase != 'all'? options: allOptions)
-
+if (transformData){
+  posts =  await Post.paginate({$and:transformData},search ? options:allOptions)
 } else {
 
-posts =  await Post.paginate({posting_type:query.split("&&")[1]},location && state.toLowerCase != 'all' ? options: allOptions)
-
-}
-
+  posts =  await Post.paginate({},options)
 }
 
 
-}
 
+    }
 
 
 

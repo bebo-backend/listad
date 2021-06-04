@@ -47,7 +47,7 @@ export default withSession(async (req, res) => {
   dbConnect()
   
 const {title,description,images_id,posting_type,location,
-	category,email,extra_data,agent_user,anonymous
+	category,email,extra_data,agent_user,anonymous,price
 
 } = req.body
 
@@ -77,6 +77,7 @@ createProperty = await Post.create({
         location,
         category,
 anonymous,
+price,
         agentuser:getUser._id,
         images:setImages(images_id),
         extra_data

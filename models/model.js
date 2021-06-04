@@ -146,6 +146,7 @@ const PostSch = new mongoose.Schema({
     posting_type:{type:String,required:true},
     description:{type:String,required:true},
     location:String,
+price:String,
   anonymous:{type:String,default:'false'},
    agentuser:{type:Types.ObjectId, ref:"UserData"},
     images:[Image],

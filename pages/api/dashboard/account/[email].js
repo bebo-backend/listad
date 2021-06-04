@@ -31,12 +31,14 @@ select:'username phone email date image'
 
 
 
-console.log('user',user)
+
 
 if (user.docs.length > 0){
 
 const user_data = user.docs[0]
 const   post =  await Post.find({agentuser:user_data._id}).countDocuments()
+
+console.log('user',user_data)
 
 let postDate = ""
 
@@ -58,10 +60,10 @@ postDate=""
 }
 
 
-user.docs = {username:user_data[username],
-image:user_data[image],email:user_data[email],
-phone:user_data[phone],created:user_data[date],posts:post,
-'last posted':postDate}
+user.docs = [{username:user_data.username,fullname:user_data.fullname,
+image:user_data.image,email:user_data.email,
+phone:user_data.phone,created:user_data.date,posts:post,
+'last posted':postDate}]
 
 
 
