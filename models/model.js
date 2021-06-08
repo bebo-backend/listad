@@ -26,6 +26,23 @@ const views = mongoose.models.Views ||  mongoose.model('Views', Views);
 
 
 
+const Replies = new mongoose.Schema({
+    
+    date: {
+        type: Date,
+        // `Date.now()` returns the current unix timestamp as a number
+        default: Date.now
+      },
+      user:{type:Types.ObjectId, ref:"UserData"},
+	text:String
+  
+
+})
+
+const replies = mongoose.models.Replies ||  mongoose.model('Replies', Replies);
+
+
+
 
 const AboutSch = new mongoose.Schema({
 
@@ -158,6 +175,8 @@ price:String,
         default: Date.now
       },
     views:[Views],
+ replies:[Replies],
+
 })
 
 

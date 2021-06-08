@@ -267,7 +267,7 @@ return returnData.length >0 ? returnData:null
     limit:limit,
     sort:getSort(sort),
     lean:true,
-    select:"title posting_type description agentuser images category location views date anonymous",
+    select:"title posting_type description agentuser images category location views date anonymous replies",
     populate:"agentuser"
   }
 
@@ -297,7 +297,7 @@ const searchOptions = {
       value: search,
       fields: ["title",'posting_type','description','category','location']
     },
- select:"title posting_type description agentuser images category location views date anonymous",
+ select:"title posting_type description agentuser images category location views date anonymous replies",
     populate:"agentuser"
   }
 

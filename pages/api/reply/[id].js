@@ -11,9 +11,14 @@ export default withSession(async (req, res) => {
 
 
  let {id,email} = req.query
+ let {text} = req.body
+
+
 
 email = id.split('__')[1]
 id = id.split('__')[0]
+
+console.log(email,id)
 
   try {
 
@@ -21,27 +26,27 @@ id = id.split('__')[0]
     const post =  await Post.findOne({_id:id}).populate('agentuser').lean()
 
 const   getUser = await UserData.findOne({email:email})
+             let viewData = []
 
-const   postUser = await UserData.findOne({email:post.agentuser.email})
 
 if (getUser){
 
 
 
-             let viewData = []
+
 
             
-   if (post.views){
+   if (post.replies){
 
-     viewData = [...post.views,{user:getUser}] 
+     viewData = [{user:getUser,text},...post.replies] 
    } else {
 
-       viewData = [{user:getUser}]
+       viewData = [{user:getUser,text}]
   }
 
 
 
- await Post.findOneAndUpdate({_id:id}, {views:viewData}, (err,data)=>{
+ await Post.findOneAndUpdate({_id:id}, {replies:viewData}, (err,data)=>{
         
              })
 
@@ -52,13 +57,7 @@ if (getUser){
 
 
 
-post.agentuser = postUser
-
-
-//console.log(post)
-
-
-res.status(200).json(post)
+res.status(200).json({done:true})
 
    
 
