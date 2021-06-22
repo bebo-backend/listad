@@ -1,7 +1,7 @@
 
 
 module.exports = {
-  siteUrl: 'http://postlist.vercel.app',
+  siteUrl: 'http://listad.vercel.app',
   generateRobotsTxt: true,
   exclude:['dashboard/profile'],
   sitemapSize:7000,

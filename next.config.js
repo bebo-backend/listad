@@ -6,7 +6,7 @@ module.exports = {
   webpack: (config, { isServer }) => {
     if (isServer) {
 
-require('./socket-server.js').initialize(3300);
+//require('./socket-server.js').initialize(3300);
 
     }
 

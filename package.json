@@ -23,18 +23,6 @@
         "magnific-popup": "^1.1.0",
         "masonry-layout": "^4.2.2",
         "mongoose": "^5.10.14",
-        "mongoose-bcrypt": "^1.9.0",
-        "mongoose-blob-store": "^1.0.0",
-        "mongoose-file": "0.0.2",
-        "mongoose-geojson-schema": "^2.1.5",
-        "mongoose-gridfs": "^1.2.48",
-        "mongoose-hidden": "^1.9.0",
-        "mongoose-paginate": "^5.0.3",
-        "mongoose-paginate-v2": "^1.3.11",
-        "mongoose-pagination-wizard": "^1.0.1",
-        "mongoose-type-email": "^1.1.2",
-        "mongoose-type-url": "^2.1.0",
-        "mongoose-validator": "^2.1.0",
         "next": ">=9.5.4",
         "next-auth": "^3.1.0",
         "next-iron-session": "^4.1.8",
@@ -43,7 +31,6 @@
         "next-pwa": "^3.1.5",
         "next-seo": "^4.17.0",
         "next-sitemap": "^1.3.6",
-        "next-translate": "^0.20.2",
         "nextjs-fonts": "^0.22.0",
         "popper.js": "^1.16.1",
         "postcss-flexbugs-fixes": "^4.2.1",
@@ -65,7 +52,6 @@
         "serialize-javascript": "^4.0.0",
         "socket.io": "^3.0.3",
         "socket.io-client": "^3.0.3",
-        "superagent": "^6.1.0",
         "swr": "0.2.3",
         "validator": "^13.1.17"
     },
@@ -74,7 +60,7 @@
         "@tailwindcss/custom-forms": "^0.2.1",
         "tailwindcss-blend-mode": "^1.0.0",
         "tailwindcss-image-rendering": "^1.0.2",
-        "typescript": "^4.1.3"
+
     },
     "optionalDependencies": {
         "bufferutil": "^4.0.2",
