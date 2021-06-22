@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Allow: /details/[title]/[id]
+Allow: /seller/[email]
+Allow: /search
+Disallow: dashboard/profile
+Host: http://listad.vercel.app
+Sitemap: http://listad.vercel.app/sitemap.xml

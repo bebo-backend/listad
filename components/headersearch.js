@@ -5,7 +5,7 @@ import {useRouter} from 'next/router'
 import axios from 'axios'
 import gistfile1 from './contrib/gistfile1'
 
-import SearchComponent,{bigSearchComponent} from './searchComponent'
+import SearchComponent,{bigSearchComponent} from './searchcomponent'
 
 
 

@@ -6,8 +6,8 @@ import useSWR from 'swr'
 import fetchJson from '../../lib/fetchJson'
 import axios from 'axios'
 import Search from "../../components/headersearch"
-import Notifications from "../../components/getNotification"
-import Message from "../../components/getMessage"
+import Notifications from "../../components/getnotification"
+import Message from "../../components/getmessage"
 import {CLOUDINARY_URL} from "../../components/contrib/config"
 
 
