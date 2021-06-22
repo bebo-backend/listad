@@ -4,7 +4,6 @@ import { Provider } from 'react-redux'
 import { useStore } from '../store'
 import { SWRConfig } from 'swr'
 
-import 'react-dropzone-uploader/dist/styles.css'
 import "../public/vendors/styles/icon-font.min.css"
 import "../public/vendors/styles/core.css"
 import "../public/vendors/styles/style.css"  

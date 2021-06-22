@@ -1,4 +1,4 @@
-
+/*
 import withSession from '../../lib/session'
 import {UserData,Group} from "../../models/model"
 import dbConnect from "../../utils/connectDb"
@@ -87,3 +87,6 @@ res.status(200).json({success:false})
     res.status(200).json({success:false,error:error.message})
   }
 })
+
+
+*/
